@@ -21,4 +21,6 @@ $env.config.completions.external.enable = true
 
 
 alias cat = bat
-# alias cd = zoxide
+# alias rm = trash-cli
+
+fastfetch
