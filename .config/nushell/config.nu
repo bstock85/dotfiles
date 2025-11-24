@@ -19,6 +19,8 @@
 $env.config.show_banner = false
 $env.config.completions.external.enable = true
 
+use std/util "path add"
+path add "~/.pixi/bin"
 
 alias cat = bat
 # alias rm = trash-cli
