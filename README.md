@@ -16,6 +16,6 @@ zoxide init nushell | save .config/nushell/autoload/zoxide.nu
 
 ## pixi install
 ```
-pixi global install atuin bat btop carapace dua-cli fastfetch helix gh git lazydocker lazygit nushell starship tealdeer yazi zellij zoxide
+pixi global install atuin bat btop carapace dua-cli fastfetch helix gh git lazydocker lazygit nushell starship stow tealdeer yazi zellij zoxide
 pixi global update
 ```
