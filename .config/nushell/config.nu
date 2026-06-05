@@ -21,8 +21,7 @@ $env.config.completions.external.enable = true
 
 use std/util "path add"
 path add "~/.pixi/bin"
+path add "~/.vite-plus/env"
 
-alias cat = bat
-# alias rm = trash-cli
 
 fastfetch
