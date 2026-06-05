@@ -17,9 +17,9 @@ stow .
 
 ## nushell scripts
 ```
-atuin init nu | save .config/nushell/autoload/atuin.nu -f
-carapace _carapace nushell | save --force .config/nushell/autoload/carapace.nu -f
-pixi completion -s nushell | save -f .config/nushell/autoload/pixi.nu -f
-starship init nu | save -f .config/nushell/autoload/starship.nu -f
-zoxide init nushell | save .config/nushell/autoload/zoxide.nu -f
+atuin init nu | save -f .config/nushell/autoload/atuin.nu
+carapace _carapace nushell | save -f .config/nushell/autoload/carapace.nu
+pixi completion -s nushell | save -f .config/nushell/autoload/pixi.nu
+starship init nu | save -f .config/nushell/autoload/starship.nu
+zoxide init nushell | save -f .config/nushell/autoload/zoxide.nu
 ```

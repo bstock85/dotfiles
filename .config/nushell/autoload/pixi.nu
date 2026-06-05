@@ -15,7 +15,7 @@ module completions {
     [ "always" "never" "auto" ]
   }
 
-  #  Pixi [version 0.67.2] - Developer Workflow and Environment Management for Multi-Platform, Language-Agnostic Workspaces.  Pixi is a versatile developer workflow tool designed to streamline the management of your workspace's dependencies, tasks, and environments. Built on top of the Conda ecosystem, Pixi offers seamless integration with the PyPI ecosystem.  Basic Usage:     Initialize pixi for a workspace:     $ pixi init     $ pixi add python numpy pytest      Run a task:     $ pixi task add test 'pytest -s'     $ pixi run test  Found a Bug or Have a Feature Request? Open an issue at: https://github.com/prefix-dev/pixi/issues  Need Help? Ask a question on the Prefix Discord server: https://discord.gg/kKV8ZxyzY4  For more information, see the documentation at: https://pixi.sh 
+  #  Pixi [version 0.62.2] - Developer Workflow and Environment Management for Multi-Platform, Language-Agnostic Workspaces.  Pixi is a versatile developer workflow tool designed to streamline the management of your workspace's dependencies, tasks, and environments. Built on top of the Conda ecosystem, Pixi offers seamless integration with the PyPI ecosystem.  Basic Usage:     Initialize pixi for a workspace:     $ pixi init     $ pixi add python numpy pytest      Run a task:     $ pixi task add test 'pytest -s'     $ pixi run test  Found a Bug or Have a Feature Request? Open an issue at: https://github.com/prefix-dev/pixi/issues  Need Help? Ask a question on the Prefix Discord server: https://discord.gg/kKV8ZxyzY4  For more information, see the documentation at: https://pixi.sh 
   export extern pixi [
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
@@ -41,7 +41,6 @@ module completions {
   # Adds dependencies to the workspace
   export extern "pixi add" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --host                    # The specified dependencies are host dependencies. Conflicts with `build` and `pypi`
     --build                   # The specified dependencies are build dependencies. Conflicts with `host` and `pypi`
     --pypi                    # The specified dependencies are pypi dependencies. Conflicts with `host` and `build`
@@ -87,10 +86,6 @@ module completions {
     --no-progress             # Hide all progress bars, always turned on if stderr is not a terminal
   ]
 
-  def "nu-complete pixi auth login oauth_flow" [] {
-    [ "auto" "auth-code" "device-code" ]
-  }
-
   def "nu-complete pixi auth login color" [] {
     [ "always" "never" "auto" ]
   }
@@ -104,12 +99,6 @@ module completions {
     --s3-access-key-id: string # The S3 access key ID
     --s3-secret-access-key: string # The S3 secret access key
     --s3-session-token: string # The S3 session token
-    --oauth                   # Use OAuth/OIDC authentication
-    --oauth-issuer-url: string # OIDC issuer URL (defaults to <https://{host>})
-    --oauth-client-id: string # OAuth client ID (defaults to "rattler")
-    --oauth-client-secret: string # OAuth client secret (for confidential clients)
-    --oauth-flow: string@"nu-complete pixi auth login oauth_flow" # OAuth flow: auto (default), auth-code, device-code
-    --oauth-scope: string     # Additional OAuth scopes to request (repeatable)
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -196,11 +185,9 @@ module completions {
   # Cleanup the environments
   export extern "pixi clean" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --environment(-e): string@"nu-complete pixi run environment" # The environment directory to remove
     --activation-cache        # Only remove the activation cache
     --build                   # Only remove the pixi-build cache
-    --workspaces-registry     # Only remove disassociated workspace registries
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -223,7 +210,6 @@ module completions {
     --build                   # Clean only the build related cache
     --yes(-y)                 # Answer yes to all questions
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -284,7 +270,6 @@ module completions {
     --global(-g)              # Operation on global configuration
     --system(-s)              # Operation on system configuration
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -304,7 +289,6 @@ module completions {
     --global(-g)              # Operation on global configuration
     --system(-s)              # Operation on system configuration
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -323,7 +307,6 @@ module completions {
     --global(-g)              # Operation on global configuration
     --system(-s)              # Operation on system configuration
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -343,7 +326,6 @@ module completions {
     --global(-g)              # Operation on global configuration
     --system(-s)              # Operation on system configuration
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -363,7 +345,6 @@ module completions {
     --global(-g)              # Operation on global configuration
     --system(-s)              # Operation on system configuration
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -383,7 +364,6 @@ module completions {
     --global(-g)              # Operation on global configuration
     --system(-s)              # Operation on system configuration
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -664,7 +644,6 @@ module completions {
     --use-environment-activation-cache # Use environment activation cache (experimental)
     --environment(-e): string # Allows listing all the packages installed in a specific environment, with an output similar to `pixi list`
     --sort-by: string@"nu-complete pixi global list sort_by" # Sorting strategy for the package table of an environment
-    --json                    # Whether to output in JSON format
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -776,7 +755,7 @@ module completions {
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
     --color: string@"nu-complete pixi global expose remove color" # Whether the log needs to be colored
     --no-progress             # Hide all progress bars, always turned on if stderr is not a terminal
-    ...EXPOSED_NAME: string   # The exposed names that should be removed. Can be specified multiple times
+    ...EXPOSED_NAME: string   # The exposed names that should be removed Can be specified multiple times
   ]
 
   # Print this message or the help of the given subcommand(s)
@@ -1067,7 +1046,6 @@ module completions {
     --extended                # Show cache and environment size
     --json                    # Whether to show the output as JSON or not
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -1123,7 +1101,6 @@ module completions {
   # Imports a file into an environment in an existing workspace.
   export extern "pixi import" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --format: string@"nu-complete pixi import format" # Which format to interpret the file as
     --platform(-p): string    # The platforms for the imported environment
     --environment(-e): string@"nu-complete pixi run environment" # A name for the created environment
@@ -1160,7 +1137,6 @@ module completions {
   # Install an environment, both updating the lockfile and installing the environment
   export extern "pixi install" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --frozen                  # Install the environment as defined in the lockfile, doesn't update lockfile if it isn't up-to-date with the manifest file
     --locked                  # Check if lockfile is up-to-date before installing the environment, aborts when lockfile isn't up-to-date with the manifest file
     --environment(-e): string@"nu-complete pixi run environment" # The environment to install
@@ -1203,7 +1179,6 @@ module completions {
     --sort-by: string@"nu-complete pixi list sort_by" # Sorting strategy
     --fields: string@"nu-complete pixi list fields" # Select which fields to display and in what order (comma-separated)
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --environment(-e): string@"nu-complete pixi run environment" # The environment to list packages for. Defaults to the default environment
     --no-lockfile-update      # DEPRECATED: use `--frozen` `--no-install`. Skips lock-file updates
     --frozen                  # Install the environment as defined in the lockfile, doesn't update lockfile if it isn't up-to-date with the manifest file
@@ -1225,11 +1200,9 @@ module completions {
   # Solve environment and update the lock file without installing the environments
   export extern "pixi lock" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --no-install              # Don't modify the environment, only modify the lock-file
     --json                    # Output the changes in JSON format
     --check                   # Check if any changes have been made to the lock file. If yes, exit with a non-zero code
-    --dry-run                 # Compute the lock file without writing to disk. Implies --no-install
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -1252,7 +1225,6 @@ module completions {
   # Re-install an environment, both updating the lockfile and re-installing the environment
   export extern "pixi reinstall" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --frozen                  # Install the environment as defined in the lockfile, doesn't update lockfile if it isn't up-to-date with the manifest file
     --locked                  # Check if lockfile is up-to-date before installing the environment, aborts when lockfile isn't up-to-date with the manifest file
     --environment(-e): string@"nu-complete pixi run environment" # The environment to install
@@ -1274,54 +1246,6 @@ module completions {
     ...packages: string       # Specifies the package that should be reinstalled. If no package is given, the whole environment will be reinstalled
   ]
 
-  def "nu-complete pixi publish pinning_strategy" [] {
-    [ "semver" "minor" "major" "latest-up" "exact-version" "no-pin" ]
-  }
-
-  def "nu-complete pixi publish pypi_keyring_provider" [] {
-    [ "disabled" "subprocess" ]
-  }
-
-  def "nu-complete pixi publish skip_existing" [] {
-    [ "true" "false" ]
-  }
-
-  def "nu-complete pixi publish color" [] {
-    [ "always" "never" "auto" ]
-  }
-
-  # Build a conda package and publish it to a channel.
-  export extern "pixi publish" [
-    --auth-file: path         # Path to the file containing the authentication token
-    --concurrent-downloads: string # Max concurrent network requests, default is `50`
-    --concurrent-solves: string # Max concurrent solves, default is the number of CPUs
-    --pinning-strategy: string@"nu-complete pixi publish pinning_strategy" # Set pinning strategy
-    --pypi-keyring-provider: string@"nu-complete pixi publish pypi_keyring_provider" # Specifies whether to use the keyring to look up credentials for PyPI
-    --run-post-link-scripts   # Run post-link scripts (insecure)
-    --tls-no-verify           # Do not verify the TLS certificate of the server
-    --tls-root-certs: string  # Which TLS root certificates to use: 'webpki' (bundled Mozilla roots), 'native' (system store), or 'all' (both)
-    --use-environment-activation-cache # Use environment activation cache (experimental)
-    --no-install              # Don't modify the environment, only modify the lock-file
-    --no-lockfile-update      # DEPRECATED: use `--frozen` `--no-install`. Skips lock-file updates
-    --frozen                  # Install the environment as defined in the lockfile, doesn't update lockfile if it isn't up-to-date with the manifest file
-    --locked                  # Check if lockfile is up-to-date before installing the environment, aborts when lockfile isn't up-to-date with the manifest file
-    --as-is                   # Shorthand for the combination of --no-install and --frozen
-    --target-platform(-t): string # The target platform to build for (defaults to the current platform)
-    --build-platform: string  # The build platform to use for building (defaults to the current platform)
-    --build-dir(-b): path     # The directory to use for incremental builds artifacts
-    --clean(-c)               # Whether to clean the build directory before building
-    --path: path              # The path to a directory containing a package manifest, or to a specific manifest file
-    --to: string              # The target channel URL to publish packages to
-    --force                   # Force overwrite existing packages
-    --skip-existing: string@"nu-complete pixi publish skip_existing" # Skip uploading packages that already exist on the target channel. This is enabled by default. Use `--no-skip-existing` to disable
-    --generate-attestation    # Generate sigstore attestation (prefix.dev only)
-    --help(-h)                # Display help information
-    --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
-    --quiet(-q)               # Decrease logging verbosity (quiet mode)
-    --color: string@"nu-complete pixi publish color" # Whether the log needs to be colored
-    --no-progress             # Hide all progress bars, always turned on if stderr is not a terminal
-  ]
-
   def "nu-complete pixi remove pinning_strategy" [] {
     [ "semver" "minor" "major" "latest-up" "exact-version" "no-pin" ]
   }
@@ -1337,7 +1261,6 @@ module completions {
   # Removes dependencies from the workspace
   export extern "pixi remove" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --host                    # The specified dependencies are host dependencies. Conflicts with `build` and `pypi`
     --build                   # The specified dependencies are build dependencies. Conflicts with `host` and `pypi`
     --pypi                    # The specified dependencies are pypi dependencies. Conflicts with `host` and `build`
@@ -1383,9 +1306,7 @@ module completions {
 
   # Runs task in the pixi environment
   export extern "pixi run" [
-    --executable(-x)          # Execute the command as an executable without resolving Pixi tasks
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --no-install              # Don't modify the environment, only modify the lock-file
     --no-lockfile-update      # DEPRECATED: use `--frozen` `--no-install`. Skips lock-file updates
     --frozen                  # Install the environment as defined in the lockfile, doesn't update lockfile if it isn't up-to-date with the manifest file
@@ -1405,7 +1326,6 @@ module completions {
     --environment(-e): string@"nu-complete pixi run environment" # The environment to run the task in
     --clean-env               # Use a clean environment to run the task
     --skip-deps               # Don't run the dependencies of the task ('depends-on' field in the task definition)
-    --templated               # Enable template rendering for the command arguments
     --dry-run(-n)             # Run the task in dry-run mode (only print the command that would run)
     --help
     -h
@@ -1424,17 +1344,14 @@ module completions {
   export extern "pixi search" [
     --channel(-c): string     # The channels to consider as a name or a url. Multiple channels can be specified by using this field multiple times
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
-    --platform(-p): string    # The platform(s) to search for. By default, searches all platforms from the manifest (or all known platforms if no manifest is found)
-    --limit(-l): string       # Limit the number of versions shown per package, -1 for no limit
-    --limit-packages(-n): string # Limit the number of packages shown, -1 for no limit
-    --json                    # Output in JSON format
+    --platform(-p): string    # The platform to search for, defaults to current platform
+    --limit(-l): string       # Limit the number of search results
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
     --color: string@"nu-complete pixi search color" # Whether the log needs to be colored
     --no-progress             # Hide all progress bars, always turned on if stderr is not a terminal
-    package: string           # MatchSpec of a package to search
+    package: string           # Name of package to search
   ]
 
   def "nu-complete pixi self-update color" [] {
@@ -1473,7 +1390,6 @@ module completions {
   # Start a shell in a pixi environment, run `exit` to leave the shell
   export extern "pixi shell" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --no-install              # Don't modify the environment, only modify the lock-file
     --no-lockfile-update      # DEPRECATED: use `--frozen` `--no-install`. Skips lock-file updates
     --frozen                  # Install the environment as defined in the lockfile, doesn't update lockfile if it isn't up-to-date with the manifest file
@@ -1519,7 +1435,6 @@ module completions {
   export extern "pixi shell-hook" [
     --shell(-s): string       # Sets the shell, options: [`bash`,  `zsh`,  `xonsh`,  `cmd`, `powershell`,  `fish`,  `nushell`]
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --no-install              # Don't modify the environment, only modify the lock-file
     --no-lockfile-update      # DEPRECATED: use `--frozen` `--no-install`. Skips lock-file updates
     --frozen                  # Install the environment as defined in the lockfile, doesn't update lockfile if it isn't up-to-date with the manifest file
@@ -1553,7 +1468,6 @@ module completions {
   # Interact with tasks in the workspace
   export extern "pixi task" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -1572,12 +1486,10 @@ module completions {
     --feature(-f): string     # The feature for which the task should be added
     --cwd: path               # The working directory relative to the root of the workspace
     --env: string             # The environment variable to set, use --env key=value multiple times for more than one variable
-    --default-environment: string # Add a default environment for the task
     --description: string     # A description of the task to be added
     --clean-env               # Isolate the task from the shell environment, and only use the pixi environment to run the task
     --arg: string             # The arguments to pass to the task
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -1596,7 +1508,6 @@ module completions {
     --platform(-p): string    # The platform for which the task should be removed
     --feature(-f): string     # The feature for which the task should be removed
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -1614,7 +1525,6 @@ module completions {
     --platform(-p): string    # The platform for which the alias should be added
     --description: string     # The description of the alias task
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -1635,7 +1545,6 @@ module completions {
     --environment(-e): string@"nu-complete pixi run environment" # The environment the list should be generated for. If not specified, the default environment is used
     --json                    # List as json instead of a tree If not specified, the default environment is used
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -1675,7 +1584,6 @@ module completions {
   export extern "pixi tree" [
     --platform(-p): string    # The platform to list packages for. Defaults to the current platform
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --environment(-e): string@"nu-complete pixi run environment" # The environment to list packages for. Defaults to the default environment
     --no-lockfile-update      # DEPRECATED: use `--frozen` `--no-install`. Skips lock-file updates
     --frozen                  # Install the environment as defined in the lockfile, doesn't update lockfile if it isn't up-to-date with the manifest file
@@ -1714,7 +1622,6 @@ module completions {
     --tls-root-certs: string  # Which TLS root certificates to use: 'webpki' (bundled Mozilla roots), 'native' (system store), or 'all' (both)
     --use-environment-activation-cache # Use environment activation cache (experimental)
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --no-install              # Don't install the (solve) environments needed for pypi-dependencies solving
     --dry-run(-n)             # Don't actually write the lockfile or update any environment
     --environment(-e): string@"nu-complete pixi run environment" # The environments to update. If none is specified, all environments are updated
@@ -1743,7 +1650,6 @@ module completions {
   # Checks if there are newer versions of the dependencies and upgrades them in the lockfile and manifest file
   export extern "pixi upgrade" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --no-install              # Don't modify the environment, only modify the lock-file
     --no-lockfile-update      # DEPRECATED: use `--frozen` `--no-install`. Skips lock-file updates
     --frozen                  # Install the environment as defined in the lockfile, doesn't update lockfile if it isn't up-to-date with the manifest file
@@ -1832,7 +1738,6 @@ module completions {
     --api-key(-a): string     # The prefix.dev API key, if none is provided, the token is read from the keychain / auth-file
     --attestation: path       # Upload an attestation file alongside the package. Note: if you add an attestation, you can _only_ upload a single package. Mutually exclusive with --generate-attestation
     --generate-attestation    # Automatically generate attestation using cosign in CI. Mutually exclusive with --attestation
-    --store-github-attestation # Also store the generated attestation to GitHub's attestation API. Requires `GITHUB_TOKEN` environment variable and only works in GitHub Actions. The attestation will be associated with the current repository
     --skip-existing(-s)       # Skip upload if package already exists
     --force                   # Force overwrite existing packages
     --help(-h)                # Display help information
@@ -1858,24 +1763,6 @@ module completions {
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
     --color: string@"nu-complete pixi upload anaconda color" # Whether the log needs to be colored
-    --no-progress             # Hide all progress bars, always turned on if stderr is not a terminal
-    ...package_files: path    # The package file to upload
-  ]
-
-  def "nu-complete pixi upload cloudsmith color" [] {
-    [ "always" "never" "auto" ]
-  }
-
-  # Options for uploading to a Cloudsmith repository. Authentication is used from the keychain / auth-file
-  export extern "pixi upload cloudsmith" [
-    --owner(-o): string       # The owner (namespace) of the Cloudsmith repository
-    --repo(-r): string        # The Cloudsmith repository name
-    --api-key(-a): string     # The Cloudsmith API key, if none is provided, the token is read from the keychain / auth-file
-    --url(-u): string         # The URL to the Cloudsmith API server
-    --help(-h)                # Display help information
-    --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
-    --quiet(-q)               # Decrease logging verbosity (quiet mode)
-    --color: string@"nu-complete pixi upload cloudsmith color" # Whether the log needs to be colored
     --no-progress             # Hide all progress bars, always turned on if stderr is not a terminal
     ...package_files: path    # The package file to upload
   ]
@@ -1953,10 +1840,6 @@ module completions {
   export extern "pixi upload help anaconda" [
   ]
 
-  # Options for uploading to a Cloudsmith repository. Authentication is used from the keychain / auth-file
-  export extern "pixi upload help cloudsmith" [
-  ]
-
   # Options for uploading to S3
   export extern "pixi upload help s3" [
   ]
@@ -1976,7 +1859,6 @@ module completions {
   # Modify the workspace configuration file through the command line
   export extern "pixi workspace" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -1991,7 +1873,6 @@ module completions {
   # Commands to manage workspace channels
   export extern "pixi workspace channel" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2030,7 +1911,6 @@ module completions {
     --use-environment-activation-cache # Use environment activation cache (experimental)
     --feature(-f): string     # The name of the feature to modify
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2047,7 +1927,6 @@ module completions {
   export extern "pixi workspace channel list" [
     --urls                    # Whether to display the channel's names or urls
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2086,7 +1965,6 @@ module completions {
     --use-environment-activation-cache # Use environment activation cache (experimental)
     --feature(-f): string     # The name of the feature to modify
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2122,7 +2000,6 @@ module completions {
   # Commands to manage workspace description
   export extern "pixi workspace description" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2137,7 +2014,6 @@ module completions {
   # Get the workspace description
   export extern "pixi workspace description get" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2152,7 +2028,6 @@ module completions {
   # Set the workspace description
   export extern "pixi workspace description set" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2184,7 +2059,6 @@ module completions {
   # Commands to manage workspace platforms
   export extern "pixi workspace platform" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2201,7 +2075,6 @@ module completions {
     --no-install              # Don't update the environment, only add changed packages to the lock-file
     --feature(-f): string     # The name of the feature to add the platform to
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2217,7 +2090,6 @@ module completions {
   # List the platforms in the workspace file
   export extern "pixi workspace platform list" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2234,7 +2106,6 @@ module completions {
     --no-install              # Don't update the environment, only remove the platform(s) from the lock-file
     --feature(-f): string     # The name of the feature to remove the platform from
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2270,7 +2141,6 @@ module completions {
   # Commands to manage workspace version
   export extern "pixi workspace version" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2285,7 +2155,6 @@ module completions {
   # Get the workspace version
   export extern "pixi workspace version get" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2300,7 +2169,6 @@ module completions {
   # Set the workspace version
   export extern "pixi workspace version set" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2316,7 +2184,6 @@ module completions {
   # Bump the workspace version to MAJOR
   export extern "pixi workspace version major" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2331,7 +2198,6 @@ module completions {
   # Bump the workspace version to MINOR
   export extern "pixi workspace version minor" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2346,7 +2212,6 @@ module completions {
   # Bump the workspace version to PATCH
   export extern "pixi workspace version patch" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2389,7 +2254,6 @@ module completions {
   # Commands to manage workspace environments
   export extern "pixi workspace environment" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2408,7 +2272,6 @@ module completions {
     --no-default-feature      # Don't include the default feature in the environment
     --force                   # Update the manifest even if the environment already exists
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2424,7 +2287,6 @@ module completions {
   # List the environments in the manifest file
   export extern "pixi workspace environment list" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2439,7 +2301,6 @@ module completions {
   # Remove an environment from the manifest file
   export extern "pixi workspace environment remove" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2475,7 +2336,6 @@ module completions {
   # Commands to manage workspace features
   export extern "pixi workspace feature" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2490,7 +2350,6 @@ module completions {
   # List the features in the manifest file
   export extern "pixi workspace feature list" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2505,7 +2364,6 @@ module completions {
   # Remove a feature from the manifest file
   export extern "pixi workspace feature remove" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2537,7 +2395,6 @@ module completions {
   # Commands to export workspaces to other formats
   export extern "pixi workspace export" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2560,7 +2417,6 @@ module completions {
   # Export workspace environment to a conda explicit specification file
   export extern "pixi workspace export conda-explicit-spec" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --environment(-e): string@"nu-complete pixi run environment" # The environments to render. Can be repeated for multiple environments
     --platform(-p): string    # The platform to render. Can be repeated for multiple platforms. Defaults to all platforms available for selected environments
     --ignore-pypi-errors      # PyPI dependencies are not supported in the conda explicit spec file
@@ -2593,7 +2449,6 @@ module completions {
   # Export workspace environment to a conda environment.yaml file
   export extern "pixi workspace export conda-environment" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --platform(-p): string    # The platform to render the environment file for. Defaults to the current platform
     --environment(-e): string@"nu-complete pixi run environment" # The environment to render the environment file for. Defaults to the default environment
     --name(-n): string        # The name to use for the rendered conda environment. Defaults to the environment name
@@ -2628,7 +2483,6 @@ module completions {
   # Commands to manage workspace name
   export extern "pixi workspace name" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2643,7 +2497,6 @@ module completions {
   # Get the workspace name
   export extern "pixi workspace name get" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2658,7 +2511,6 @@ module completions {
   # Set the workspace name
   export extern "pixi workspace name set" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2690,7 +2542,6 @@ module completions {
   # Commands to manage workspace system requirements
   export extern "pixi workspace system-requirements" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2711,7 +2562,6 @@ module completions {
     --family: string          # The Libc family, this can only be specified for requirement `other-libc`
     --feature(-f): string     # The name of the feature to modify
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2730,7 +2580,6 @@ module completions {
     --json                    # List the system requirements in JSON format
     --environment(-e): string@"nu-complete pixi run environment" # The environment to list the system requirements for
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2754,91 +2603,6 @@ module completions {
   export extern "pixi workspace system-requirements help help" [
   ]
 
-  def "nu-complete pixi workspace register color" [] {
-    [ "always" "never" "auto" ]
-  }
-
-  # Commands to manage the registry of workspaces. Default command will add a new workspace
-  export extern "pixi workspace register" [
-    --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
-    --name(-n): string        # Name of the workspace to register. Defaults to the name of the current workspace
-    --path(-p): path          # Path to register. Defaults to the path to the current workspace
-    --force(-f)               # Overwrite the workspace entry if the name of the workspace already exists in the registry
-    --help(-h)                # Display help information
-    --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
-    --quiet(-q)               # Decrease logging verbosity (quiet mode)
-    --color: string@"nu-complete pixi workspace register color" # Whether the log needs to be colored
-    --no-progress             # Hide all progress bars, always turned on if stderr is not a terminal
-  ]
-
-  def "nu-complete pixi workspace register list color" [] {
-    [ "always" "never" "auto" ]
-  }
-
-  # List the registered workspaces
-  export extern "pixi workspace register list" [
-    --json                    # Output in JSON format
-    --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
-    --help(-h)                # Display help information
-    --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
-    --quiet(-q)               # Decrease logging verbosity (quiet mode)
-    --color: string@"nu-complete pixi workspace register list color" # Whether the log needs to be colored
-    --no-progress             # Hide all progress bars, always turned on if stderr is not a terminal
-  ]
-
-  def "nu-complete pixi workspace register remove color" [] {
-    [ "always" "never" "auto" ]
-  }
-
-  # Remove a workspace from registry
-  export extern "pixi workspace register remove" [
-    --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
-    --help(-h)                # Display help information
-    --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
-    --quiet(-q)               # Decrease logging verbosity (quiet mode)
-    --color: string@"nu-complete pixi workspace register remove color" # Whether the log needs to be colored
-    --no-progress             # Hide all progress bars, always turned on if stderr is not a terminal
-    name: string              # Name of the workspace to unregister
-  ]
-
-  def "nu-complete pixi workspace register prune color" [] {
-    [ "always" "never" "auto" ]
-  }
-
-  # Prune disassociated workspaces from registry
-  export extern "pixi workspace register prune" [
-    --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
-    --help(-h)                # Display help information
-    --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
-    --quiet(-q)               # Decrease logging verbosity (quiet mode)
-    --color: string@"nu-complete pixi workspace register prune color" # Whether the log needs to be colored
-    --no-progress             # Hide all progress bars, always turned on if stderr is not a terminal
-  ]
-
-  # Print this message or the help of the given subcommand(s)
-  export extern "pixi workspace register help" [
-  ]
-
-  # List the registered workspaces
-  export extern "pixi workspace register help list" [
-  ]
-
-  # Remove a workspace from registry
-  export extern "pixi workspace register help remove" [
-  ]
-
-  # Prune disassociated workspaces from registry
-  export extern "pixi workspace register help prune" [
-  ]
-
-  # Print this message or the help of the given subcommand(s)
-  export extern "pixi workspace register help help" [
-  ]
-
   def "nu-complete pixi workspace requires-pixi color" [] {
     [ "always" "never" "auto" ]
   }
@@ -2846,7 +2610,6 @@ module completions {
   # Commands to manage the pixi minimum version requirement
   export extern "pixi workspace requires-pixi" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2861,7 +2624,6 @@ module completions {
   # Get the pixi minimum version requirement
   export extern "pixi workspace requires-pixi get" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2876,7 +2638,6 @@ module completions {
   # Set the pixi minimum version requirement
   export extern "pixi workspace requires-pixi set" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2892,7 +2653,6 @@ module completions {
   # Remove the pixi minimum version requirement
   export extern "pixi workspace requires-pixi unset" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -2907,7 +2667,6 @@ module completions {
   # Verify the pixi minimum version requirement
   export extern "pixi workspace requires-pixi verify" [
     --manifest-path(-m): path # The path to `pixi.toml`, `pyproject.toml`, or the workspace directory
-    --workspace(-w): string   # Name of the workspace
     --help(-h)                # Display help information
     --verbose(-v)             # Increase logging verbosity (-v for warnings, -vv for info, -vvv for debug, -vvvv for trace)
     --quiet(-q)               # Decrease logging verbosity (quiet mode)
@@ -3073,22 +2832,6 @@ module completions {
 
   # List the environments in the manifest file
   export extern "pixi workspace help system-requirements list" [
-  ]
-
-  # Commands to manage the registry of workspaces. Default command will add a new workspace
-  export extern "pixi workspace help register" [
-  ]
-
-  # List the registered workspaces
-  export extern "pixi workspace help register list" [
-  ]
-
-  # Remove a workspace from registry
-  export extern "pixi workspace help register remove" [
-  ]
-
-  # Prune disassociated workspaces from registry
-  export extern "pixi workspace help register prune" [
   ]
 
   # Commands to manage the pixi minimum version requirement
@@ -3283,10 +3026,6 @@ module completions {
   export extern "pixi help reinstall" [
   ]
 
-  # Build a conda package and publish it to a channel.
-  export extern "pixi help publish" [
-  ]
-
   # Removes dependencies from the workspace
   export extern "pixi help remove" [
   ]
@@ -3361,10 +3100,6 @@ module completions {
 
   # Options for uploading to a Anaconda.org server
   export extern "pixi help upload anaconda" [
-  ]
-
-  # Options for uploading to a Cloudsmith repository. Authentication is used from the keychain / auth-file
-  export extern "pixi help upload cloudsmith" [
   ]
 
   # Options for uploading to S3
@@ -3509,22 +3244,6 @@ module completions {
 
   # List the environments in the manifest file
   export extern "pixi help workspace system-requirements list" [
-  ]
-
-  # Commands to manage the registry of workspaces. Default command will add a new workspace
-  export extern "pixi help workspace register" [
-  ]
-
-  # List the registered workspaces
-  export extern "pixi help workspace register list" [
-  ]
-
-  # Remove a workspace from registry
-  export extern "pixi help workspace register remove" [
-  ]
-
-  # Prune disassociated workspaces from registry
-  export extern "pixi help workspace register prune" [
   ]
 
   # Commands to manage the pixi minimum version requirement
